@@ -79,6 +79,8 @@ description: Looks up spot FX rates for major pairs. Use when the user asks
 
 The spec's optional fields (`version`, `author`, `tags`, `requires`) are welcome but **never required by the registry** — so an upstream SKILL.md drops in unchanged, with or without them. If you do set a frontmatter `version`, it must match the one in `skill.yaml`. Keep the description under 200 characters and include *when to use it* — that's what agents match on.
 
+Write the **Usage** section against the AIsa API itself (`https://api.aisa.one/apis/v1/...`, Bearer `AISA_API_KEY`) — instruct the agent to call the endpoints directly. Don't assume a particular client script or SDK exists in the agent's environment; your vendored `scripts/` may post-process results, but AIsa access goes through the API.
+
 4. Add `skill.yaml` — **registry-only** metadata (validated against [`schemas/skill.schema.json`](schemas/skill.schema.json)). It deliberately does *not* repeat the frontmatter fields, so your SKILL.md stays byte-identical to any upstream copy and fully portable to other platforms:
 
 ```yaml

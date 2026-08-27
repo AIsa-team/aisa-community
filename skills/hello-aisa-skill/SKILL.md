@@ -17,11 +17,21 @@ Never, in practice — it's a format demo. A real SKILL.md should describe concr
 
 ## Usage
 
-1. Fetch the latest close via the AIsa `stock/prices` endpoint with your AIsa client, e.g.:
+1. Call the AIsa `stock/prices` endpoint for the ticker (daily bars; the latest close is the last bar):
 
    ```
-   market_client.py stock prices --ticker NVDA --start <yesterday> --end <today>
+   GET https://api.aisa.one/apis/v1/financial/prices?ticker=<TICKER>&start_date=<YYYY-MM-DD>&end_date=<YYYY-MM-DD>&interval=day
+   Authorization: Bearer $AISA_API_KEY
    ```
+
+   For example:
+
+   ```
+   curl -s -H "Authorization: Bearer $AISA_API_KEY" \
+     "https://api.aisa.one/apis/v1/financial/prices?ticker=NVDA&start_date=2026-08-26&end_date=2026-08-27&interval=day"
+   ```
+
+   Take the `close` of the most recent bar. Always read the response body — the API reports failures in an `error` field of the JSON, not only via HTTP status.
 
 2. Format the greeting with the returned close:
 
@@ -33,8 +43,8 @@ Never, in practice — it's a format demo. A real SKILL.md should describe concr
 
 ## External endpoints & requirements
 
-- **Network endpoints called:** AIsa `stock/prices` (the only external call, made through the agent's AIsa client)
-- **Credentials/API keys required:** an AIsa API key configured for the agent's AIsa client
-- **System dependencies:** bash, date
+- **Network endpoints called:** `GET https://api.aisa.one/apis/v1/financial/prices` (the AIsa `stock/prices` endpoint) — the only external call
+- **Credentials/API keys required:** `AISA_API_KEY` (Bearer token with stock/prices access)
+- **System dependencies:** bash, date, curl (or any HTTP client the agent already has)
 
 *(A real skill must list every endpoint it talks to and every credential it needs — this section is mandatory, and reviewers verify that the endpoints declared in `skill.yaml` are genuinely used. See [SECURITY.md](../../SECURITY.md) and [CONTRIBUTING.md](../../CONTRIBUTING.md).)*

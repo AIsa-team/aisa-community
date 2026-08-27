@@ -45,7 +45,7 @@ _No competitions decided yet. The first cycle is underway — see [competitions/
 <!-- SKILLS:START -->
 | Skill | What it does | AIsa endpoints | Category | Version | Requires | Author |
 |---|---|---|---|---|---|---|
-| [**hello-aisa-skill**](skills/hello-aisa-skill/) | Greets the user with a ticker's latest close fetched from the AIsa stock/prices endpoint. Seed example demonstrating the community skill format — copy its structure. | `stock/prices` | utilities | 1.1.0 | AIsa API key (stock/prices access) | [@AIsa-team](https://github.com/AIsa-team) |
+| [**hello-aisa-skill**](skills/hello-aisa-skill/) | Greets the user with a ticker's latest close fetched from the AIsa stock/prices endpoint. Seed example demonstrating the community skill format — copy its structure. | `stock/prices` | utilities | 1.1.1 | AISA_API_KEY (AIsa API key with stock/prices access) | [@AIsa-team](https://github.com/AIsa-team) |
 <!-- SKILLS:END -->
 
 ## 📚 More

@@ -126,6 +126,8 @@ Exact commands, e.g. `bash scripts/run.sh <arg>`.
 - System dependencies: <e.g. bash, python3>
 ```
 
+Write the Usage section against the AIsa API itself — instruct the agent to call endpoints directly (`https://api.aisa.one/apis/v1/...` with `Authorization: Bearer $AISA_API_KEY`). Never assume a specific client script or SDK exists in the running agent's environment; vendored `scripts/` may post-process results, but AIsa access goes through the API.
+
 Frontmatter rules:
 - `name`: required, lowercase/digits/hyphens, **must equal the slug**.
 - `description`: required, ≥10 chars; keep under 200 (longer = CI warning).

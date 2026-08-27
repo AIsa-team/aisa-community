@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Hello AIsa — example community skill helper.
 # Formats the market greeting. The close price comes from the AIsa
-# stock/prices endpoint (fetched by the agent's AIsa client) and is
-# passed in as $3 — this script itself makes no network calls.
+# stock/prices endpoint (https://api.aisa.one/apis/v1/financial/prices,
+# called by the agent per SKILL.md) and is passed in as $3 — this
+# script itself makes no network calls.
 set -euo pipefail
 
 NAME="${1:-friend}"
