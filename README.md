@@ -5,7 +5,7 @@
 Built something with AIsa? Wrote a skill for it? This is where it gets seen. Every merged submission appears in the gallery below, and once or twice a month we run a **competition** — winners get **AIsa credits** and a feature on our official channels.
 
 <!-- STATS:START -->
-**1** projects · **2** skills · **2** contributors
+**1** projects · **1** skills · **1** contributors
 <!-- STATS:END -->
 
 ## 🚀 Submit in 10 minutes
@@ -46,7 +46,6 @@ _No competitions decided yet. The first cycle is underway — see [competitions/
 | Skill | What it does | Category | Version | Requires | Author |
 |---|---|---|---|---|---|
 | [**hello-aisa-skill**](skills/hello-aisa-skill/) | Prints a greeting with the current UTC time. Seed example demonstrating the community skill format — copy its structure, not its content. | utilities | 1.0.0 | none | [@AIsa-team](https://github.com/AIsa-team) |
-| [**only-emoji**](skills/only-emoji/) | Makes the agent respond using only emojis. Use when the user asks for emoji mode, emoji-only answers, or a playful emoji conversation. | other | 1.0.0 | none | [@lhymmEU](https://github.com/lhymmEU) |
 <!-- SKILLS:END -->
 
 ## 📚 More
