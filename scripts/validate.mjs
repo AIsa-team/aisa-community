@@ -135,19 +135,13 @@ const SKILL_TOP_FILES = new Set(["SKILL.md", "skill.yaml", "LICENSE"]);
 const FRONTMATTER_KNOWN = new Set(["name", "description", "version", "author", "tags", "requires"]);
 const countLines = (file) => fs.readFileSync(file, "utf8").split("\n").length;
 
-// Values that are obviously NOT a qualifying AIsa endpoint — a skill must use at
-// least one AIsa endpoint beyond plain model/LLM calls (see CONTRIBUTING.md).
-// This is a floor; reviewers verify the code actually calls what is declared.
+// Values that are obviously NOT a qualifying AIsa endpoint — every submission
+// (project or skill) must use at least one AIsa endpoint beyond plain model/LLM
+// calls (see CONTRIBUTING.md). This is a floor; reviewers verify the code
+// actually calls what is declared.
 const NON_QUALIFYING_ENDPOINT = /^(none|n\/?a|-|llm|model|models?\/.*|chat|completions?|chat\/completions?|plain model call|prompt|gpt|claude)$/i;
 
 function checkSkillFormat(folder, relFolder, meta) {
-  // --- endpoint eligibility ---
-  for (const ep of meta?.aisa_endpoints_used ?? []) {
-    if (typeof ep === "string" && NON_QUALIFYING_ENDPOINT.test(ep.trim())) {
-      err(`${relFolder}/skill.yaml: aisa_endpoints_used entry "${ep}" is not a qualifying AIsa endpoint — skills must use at least one endpoint beyond plain model calls (e.g. stock/prices, search/web); see CONTRIBUTING.md`);
-    }
-  }
-
   // --- file structure ---
   for (const entry of fs.readdirSync(folder, { withFileTypes: true })) {
     if (entry.name.startsWith(".")) continue;
@@ -248,6 +242,14 @@ function checkSubmission(track, dir) {
 
   const validate = track === "project" ? validateProject : validateSkill;
   schemaErrors(validate, meta, `${relFolder}/${metaName}`);
+
+  // Endpoint eligibility (both tracks): declared endpoints must be real AIsa
+  // endpoints, not plain model/LLM calls.
+  for (const ep of meta.aisa_endpoints_used ?? []) {
+    if (typeof ep === "string" && NON_QUALIFYING_ENDPOINT.test(ep.trim())) {
+      err(`${relFolder}/${metaName}: aisa_endpoints_used entry "${ep}" is not a qualifying AIsa endpoint — submissions must use at least one endpoint beyond plain model calls (e.g. stock/prices, search/web); see CONTRIBUTING.md`);
+    }
+  }
 
   if (meta.slug && meta.slug !== dir) {
     err(`${relFolder}: slug "${meta.slug}" does not match folder name "${dir}"`);

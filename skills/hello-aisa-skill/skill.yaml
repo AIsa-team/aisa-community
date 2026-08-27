@@ -3,8 +3,9 @@ author:
   github: AIsa-team
   name: AIsa Team
 category: utilities
-version: "1.0.0"
+version: "1.1.0"
 license: MIT
-aisa_endpoints_used: [search/web]  # illustrative — seed only; real skills must genuinely call what they declare
-requirements: []
+aisa_endpoints_used: [stock/prices]  # required, at least 1 — must be genuinely used by the skill
+requirements:
+  - AIsa API key (stock/prices access)
 submitted: "2026-08-27"

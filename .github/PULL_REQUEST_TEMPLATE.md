@@ -3,7 +3,8 @@
 ## 📦 Project submission
 
 - [ ] Folder `projects/<slug>/` with a valid `project.yaml` (slug matches folder name)
-- [ ] The project is public, genuinely uses AIsa, and its repo contains everything (screenshots, docs, demo)
+- [ ] Uses ≥1 AIsa endpoint beyond plain model calls, declared in `aisa_endpoints_used` and genuinely called by the project
+- [ ] The project is public and its repo contains everything (screenshots, docs, demo)
 - [ ] Entering the competition? `competition: "<cycle>"` is set in the metadata
 
 ## 🧩 Skill submission

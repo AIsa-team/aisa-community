@@ -10,7 +10,7 @@ Collect these from your user; never invent them:
 2. Their **GitHub handle** (used for attribution and prize delivery).
 3. The **public repo URL** of the work (projects: required; skills: optional upstream).
 4. For skills: which **OSI license** to publish under (`MIT`, `Apache-2.0`, `BSD-2-Clause`, `BSD-3-Clause`, `ISC`, `MPL-2.0`, or `Unlicense`).
-5. For skills: which **AIsa endpoints** the skill uses. **Eligibility gate:** a skill must use at least one AIsa endpoint that is not a plain model/LLM call (e.g. `stock/prices`, `search/web`). If the skill is prompt-only or just wraps a chat completion, it is NOT eligible — tell your user before doing any work.
+5. Which **AIsa endpoints** the work uses. **Eligibility gate (both tracks):** every submission must use at least one AIsa endpoint that is not a plain model/LLM call (e.g. `stock/prices`, `search/web`). If it is prompt-only or just wraps a chat completion, it is NOT eligible — tell your user before doing any work.
 6. Whether to **enter the current competition** (check `competitions/` for the newest `YYYY-MM` folder and its deadline).
 
 ## Workflow
@@ -48,8 +48,8 @@ tags: [bot, telegram]            # optional, max 8, each: lowercase/digits/hyphe
 repo_url: https://github.com/... # required, must be https and public
 demo_url: https://...            # optional, https
 video_url: https://...           # optional, https
-aisa_endpoints_used:             # optional, but if present min 1 item
-  - stock/prices                 # which AIsa endpoints the project calls
+aisa_endpoints_used:             # required, min 1 — AIsa endpoints the project ACTUALLY calls.
+  - stock/prices                 #   Plain model/LLM calls do not qualify (eligibility gate).
   - search/web
 license: MIT                     # optional, SPDX id of the project's own license
 competition: "2026-09"           # optional — quote it; enters that competition cycle
@@ -151,7 +151,7 @@ To enter, set `competition: "YYYY-MM"` (quoted) in `project.yaml`/`skill.yaml`, 
 | Unquoted `version`, `competition`, or `submitted` | Quote them — YAML mangles them otherwise |
 | `screenshot:` or other unknown fields in project.yaml | Remove — schema rejects unknown fields |
 | `name`/`description`/`version`/`tags` in skill.yaml | Remove — those live in SKILL.md frontmatter / registry uses skill.yaml `version` only |
-| `aisa_endpoints_used` missing, or lists a plain model call (`llm`, `chat`, ...) | Declare ≥1 real AIsa endpoint the code calls; prompt-only skills are not eligible |
+| `aisa_endpoints_used` missing, or lists a plain model call (`llm`, `chat`, ...) | Both tracks: declare ≥1 real AIsa endpoint the code calls; prompt-only submissions are not eligible |
 | Loose script or doc at skill top level | Move into `scripts/` / `references/` |
 | `http://` URLs | Use `https://` |
 | Frontmatter missing or not first thing in SKILL.md | `---` block must start at line 1 |

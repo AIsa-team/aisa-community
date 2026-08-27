@@ -1,14 +1,15 @@
 name: Hello AIsa (example entry)
 slug: hello-aisa
 description: >
-  Seed entry from the AIsa team demonstrating the submission format.
-  Your entry should describe, in one or two sentences, what your project
-  does and why it's interesting.
+  Seed entry from the AIsa team demonstrating the submission format —
+  including the endpoint rule: every submission must genuinely use at
+  least one AIsa endpoint beyond plain model calls, declared in
+  aisa_endpoints_used.
 author:
   github: AIsa-team
   name: AIsa Team
 category: other
 tags: [example]
 repo_url: https://github.com/AIsa-team/agent-skills
-aisa_endpoints_used: [stock/prices, search/web]
+aisa_endpoints_used: [stock/prices, search/web]  # required, at least 1 — beyond plain model calls
 submitted: "2026-08-27"

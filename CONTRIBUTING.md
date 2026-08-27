@@ -31,18 +31,20 @@ category: finance               # productivity | finance | research | developer-
 tags: [telegram, digest]        # optional, max 8
 repo_url: https://github.com/yourhandle/stock-digest-bot
 demo_url: https://example.com   # optional
-aisa_endpoints_used: [stock/prices, search/web]
+aisa_endpoints_used:            # required, at least 1 — AIsa endpoints beyond plain model calls
+  - stock/prices
+  - search/web
 competition: "2026-09"          # optional — enters the current competition
 submitted: "2026-09-05"
 ```
 
 4. Open a PR. CI validates it; a maintainer reviews within a few days.
 
-**Acceptance bar:** it must actually use AIsa, the repo must be public, and the description must honestly say what it does. That's it — polish is for competitions, not for entry.
+**Acceptance bar:** it must use **at least one AIsa endpoint beyond plain model calls** (declared in `aisa_endpoints_used` — a thin wrapper around a chat/LLM completion doesn't qualify), the repo must be public, and the description must honestly say what it does. That's it — polish is for competitions, not for entry.
 
 ## Submitting a skill
 
-**Eligibility — the endpoint rule:** a skill must use **at least one AIsa endpoint that is not a plain model call** (e.g. `stock/prices`, `stock/news`, `search/web`, `search/scholar`, prediction-market or social-data endpoints). Prompt-only behavior packs and thin wrappers around a chat/LLM completion don't qualify. This registry exists to grow what agents can *do* with AIsa's data and tools — a skill that only re-prompts a model adds a prompt, not a capability. Declare your endpoints in `aisa_endpoints_used`; CI checks the declaration and **reviewers verify the code actually calls them**.
+**Eligibility — the endpoint rule (applies to both tracks):** a submission must use **at least one AIsa endpoint that is not a plain model call** (e.g. `stock/prices`, `stock/news`, `search/web`, `search/scholar`, prediction-market or social-data endpoints). Prompt-only behavior packs and thin wrappers around a chat/LLM completion don't qualify. This registry exists to grow what agents can *do* with AIsa's data and tools — something that only re-prompts a model adds a prompt, not a capability. Declare your endpoints in `aisa_endpoints_used`; CI checks the declaration and **reviewers verify the code actually calls them**.
 
 Skills must follow the Skills Directory format: the [SKILL.md frontmatter spec](https://www.skillsdirectory.com/docs/skill-md-format) and the [skill file structure](https://www.skillsdirectory.com/docs/skill-file-structure). CI enforces both.
 

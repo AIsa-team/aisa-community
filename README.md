@@ -35,7 +35,7 @@ _No competitions decided yet. The first cycle is underway — see [competitions/
 <!-- PROJECTS:START -->
 | Project | What it does | AIsa endpoints used | Author | Links |
 |---|---|---|---|---|
-| [**Hello AIsa (example entry)**](projects/hello-aisa/) | Seed entry from the AIsa team demonstrating the submission format. Your entry should describe, in one or two sentences, what your project does and why it's interesting. | `stock/prices` `search/web` | [@AIsa-team](https://github.com/AIsa-team) | [repo](https://github.com/AIsa-team/agent-skills) |
+| [**Hello AIsa (example entry)**](projects/hello-aisa/) | Seed entry from the AIsa team demonstrating the submission format — including the endpoint rule: every submission must genuinely use at least one AIsa endpoint beyond plain model calls, declared in aisa_endpoints_used. | `stock/prices` `search/web` | [@AIsa-team](https://github.com/AIsa-team) | [repo](https://github.com/AIsa-team/agent-skills) |
 <!-- PROJECTS:END -->
 
 ## 🧩 Community skills for AIsa
@@ -45,7 +45,7 @@ _No competitions decided yet. The first cycle is underway — see [competitions/
 <!-- SKILLS:START -->
 | Skill | What it does | AIsa endpoints | Category | Version | Requires | Author |
 |---|---|---|---|---|---|---|
-| [**hello-aisa-skill**](skills/hello-aisa-skill/) | Prints a greeting with the current UTC time. Seed example demonstrating the community skill format — copy its structure, not its content. | `search/web` | utilities | 1.0.0 | none | [@AIsa-team](https://github.com/AIsa-team) |
+| [**hello-aisa-skill**](skills/hello-aisa-skill/) | Greets the user with a ticker's latest close fetched from the AIsa stock/prices endpoint. Seed example demonstrating the community skill format — copy its structure. | `stock/prices` | utilities | 1.1.0 | AIsa API key (stock/prices access) | [@AIsa-team](https://github.com/AIsa-team) |
 <!-- SKILLS:END -->
 
 ## 📚 More

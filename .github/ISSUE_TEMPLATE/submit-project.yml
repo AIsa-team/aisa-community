@@ -35,7 +35,8 @@ body:
   - type: input
     id: endpoints
     attributes:
-      label: AIsa endpoints used
+      label: AIsa endpoints used (at least 1)
+      description: Projects must use at least one AIsa endpoint beyond plain model calls — prompt-only wrappers are not eligible.
       placeholder: stock/prices, search/web
     validations:
       required: true
