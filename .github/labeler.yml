@@ -1,0 +1,18 @@
+"submission:project":
+  - changed-files:
+      - any-glob-to-any-file: "projects/**"
+
+"submission:skill":
+  - changed-files:
+      - any-glob-to-any-file: "skills/**"
+
+"competition-admin":
+  - changed-files:
+      - any-glob-to-any-file: "competitions/**"
+
+"tooling":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "scripts/**"
+          - "schemas/**"
+          - ".github/**"

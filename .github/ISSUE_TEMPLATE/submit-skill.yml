@@ -1,0 +1,72 @@
+name: "🧩 Submit a skill (no git required)"
+description: "Built a skill for AIsa? Submit it here. Note: skill code must end up vendored in this repo, so a PR from you is strongly preferred."
+title: "[Skill] "
+labels: ["submission:skill", "via-issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Skills are vendored into this repo so the community can review and install them —
+        a direct PR (see [CONTRIBUTING.md](https://github.com/AIsa-team/aisa-community/blob/main/CONTRIBUTING.md)) is strongly preferred.
+        Use this form if you need help with the process.
+  - type: input
+    id: name
+    attributes:
+      label: Skill name
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it do, and when should an agent use it?
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Where does the code live today?
+      placeholder: https://github.com/you/your-skill
+    validations:
+      required: true
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: Required — skill code is vendored into this repo.
+      options:
+        - MIT
+        - Apache-2.0
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - MPL-2.0
+        - Unlicense
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: External requirements
+      description: API keys, accounts, system dependencies — and every network endpoint the skill calls. Write "none" if none.
+    validations:
+      required: true
+  - type: dropdown
+    id: competition
+    attributes:
+      label: Enter the current competition?
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is my own work, under the license selected above.
+          required: true
+        - label: The skill complies with SECURITY.md (no download-and-execute, no undeclared credential access, no obfuscated code).
+          required: true
+        - label: I've read the Code of Conduct.
+          required: true

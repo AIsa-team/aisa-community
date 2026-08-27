@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AIsa-team/aisa-community/schemas/skill.schema.json",
+  "title": "AIsa Community Skill Submission (registry metadata)",
+  "description": "Registry-only metadata. The skill's identity (name, description) is read from the SKILL.md frontmatter (https://www.skillsdirectory.com/docs/skill-md-format). The registry never requires optional frontmatter fields — anything it needs beyond name/description lives here, so upstream SKILL.md files drop in unchanged.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "author", "category", "version", "license", "submitted"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$",
+      "description": "URL-safe identifier. Must match the folder name under skills/ and the frontmatter name."
+    },
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["github"],
+      "properties": {
+        "github": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$",
+          "description": "GitHub username (no @) — used for attribution and prize delivery."
+        },
+        "name": { "type": "string", "maxLength": 80 }
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "data",
+        "finance",
+        "search",
+        "social",
+        "productivity",
+        "developer-tools",
+        "media",
+        "utilities",
+        "other"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Registry version of this skill — bump on code changes. If the frontmatter also sets a version, the two must match."
+    },
+    "license": {
+      "type": "string",
+      "enum": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "MPL-2.0", "Unlicense"],
+      "description": "Required OSI license (code is vendored into this repo)."
+    },
+    "repo_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Upstream repository, if the skill is also maintained elsewhere."
+    },
+    "requirements": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "maxLength": 120 },
+      "description": "External requirements: API keys, accounts, system dependencies. Empty/omitted = none."
+    },
+    "competition": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$",
+      "description": "Set to a competition cycle (e.g. 2026-09) to enter that competition."
+    },
+    "submitted": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Submission date, YYYY-MM-DD."
+    }
+  }
+}

@@ -1,0 +1,60 @@
+name: Label submission PRs
+
+# pull_request_target is safe here: we never check out or execute PR code.
+# Path labels come from actions/labeler; the competition label is derived by
+# reading changed metadata files through the GitHub API only.
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Path-based labels
+        uses: actions/labeler@v5
+        with:
+          sync-labels: true
+
+      - name: Competition-cycle label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner, repo, pull_number: prNumber, per_page: 100,
+            });
+            const metaFiles = files.filter(f =>
+              /^(projects|skills)\/[^/]+\/(project|skill)\.yaml$/.test(f.filename) &&
+              f.status !== "removed"
+            );
+            const cycles = new Set();
+            for (const f of metaFiles) {
+              // Read the file content from the PR head via the API (no checkout).
+              const res = await github.rest.repos.getContent({
+                owner: context.payload.pull_request.head.repo.owner.login,
+                repo: context.payload.pull_request.head.repo.name,
+                path: f.filename,
+                ref: context.payload.pull_request.head.sha,
+              }).catch(() => null);
+              if (!res || Array.isArray(res.data) || !res.data.content) continue;
+              const text = Buffer.from(res.data.content, "base64").toString("utf8");
+              const m = text.match(/^competition:\s*["']?(\d{4}-\d{2})["']?\s*$/m);
+              if (m) cycles.add(m[1]);
+            }
+            for (const cycle of cycles) {
+              const label = `competition:${cycle}`;
+              await github.rest.issues.createLabel({
+                owner, repo, name: label, color: "F9D71C",
+                description: `Entry for the ${cycle} competition cycle`,
+              }).catch(() => {}); // already exists
+              await github.rest.issues.addLabels({
+                owner, repo, issue_number: prNumber, labels: [label],
+              });
+            }

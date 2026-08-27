@@ -1,0 +1,76 @@
+name: "📦 Submit a project (no git required)"
+description: "Built something with AIsa? Submit it here and a maintainer will turn it into a PR crediting you. (PRs are faster — see CONTRIBUTING.md.)"
+title: "[Project] "
+labels: ["submission:project", "via-issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing your project! Fill this in and a maintainer will convert it into a gallery entry.
+        If you're comfortable with git, a direct PR is faster — see [CONTRIBUTING.md](https://github.com/AIsa-team/aisa-community/blob/main/CONTRIBUTING.md).
+  - type: input
+    id: name
+    attributes:
+      label: Project name
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it do?
+      description: One or two sentences (max ~300 characters).
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Repository URL
+      placeholder: https://github.com/you/your-project
+    validations:
+      required: true
+  - type: input
+    id: demo
+    attributes:
+      label: Demo / video URL (optional)
+  - type: input
+    id: endpoints
+    attributes:
+      label: AIsa endpoints used
+      placeholder: stock/prices, search/web
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - productivity
+        - finance
+        - research
+        - developer-tools
+        - content
+        - automation
+        - data
+        - education
+        - entertainment
+        - other
+    validations:
+      required: true
+  - type: dropdown
+    id: competition
+    attributes:
+      label: Enter the current competition?
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is my own work and it genuinely uses AIsa.
+          required: true
+        - label: I've read the Code of Conduct.
+          required: true
