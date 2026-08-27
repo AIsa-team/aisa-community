@@ -42,6 +42,8 @@ submitted: "2026-09-05"
 
 ## Submitting a skill
 
+**Eligibility — the endpoint rule:** a skill must use **at least one AIsa endpoint that is not a plain model call** (e.g. `stock/prices`, `stock/news`, `search/web`, `search/scholar`, prediction-market or social-data endpoints). Prompt-only behavior packs and thin wrappers around a chat/LLM completion don't qualify. This registry exists to grow what agents can *do* with AIsa's data and tools — a skill that only re-prompts a model adds a prompt, not a capability. Declare your endpoints in `aisa_endpoints_used`; CI checks the declaration and **reviewers verify the code actually calls them**.
+
 Skills must follow the Skills Directory format: the [SKILL.md frontmatter spec](https://www.skillsdirectory.com/docs/skill-md-format) and the [skill file structure](https://www.skillsdirectory.com/docs/skill-file-structure). CI enforces both.
 
 1. Fork this repo.
@@ -85,6 +87,8 @@ category: finance               # data | finance | search | social | productivit
                                 # developer-tools | media | utilities | other
 version: "1.0.0"                # bump on code changes
 license: MIT                    # required — OSI license, code is vendored here
+aisa_endpoints_used:            # required, at least 1 — AIsa endpoints beyond plain model calls
+  - stock/prices
 repo_url: https://github.com/yourhandle/fx-rates-lookup   # optional upstream
 requirements: []                # API keys / accounts / system deps, [] if none
 competition: "2026-09"          # optional
@@ -95,6 +99,7 @@ submitted: "2026-09-05"
 
 **Skill review is stricter** because it's executable code others will run:
 
+- Reviewers verify the endpoints declared in `aisa_endpoints_used` are genuinely called by the code — declaring endpoints the skill doesn't use fails review.
 - `SKILL.md` must document every external call the skill makes and every requirement (API keys, accounts).
 - No obfuscated code, no download-and-execute, no reading credentials beyond declared requirements. Full policy: [SECURITY.md](SECURITY.md).
 - CI runs an automated safety scan; a maintainer also reads the code.

@@ -25,8 +25,8 @@ Example: `bash scripts/greet.sh Trader` → `Hello, Trader! Greetings from the A
 
 ## External endpoints & requirements
 
-- **Network endpoints called:** none
+- **Network endpoints called:** none (the `aisa_endpoints_used: [search/web]` in this seed's `skill.yaml` is illustrative only — it demonstrates the required field; a real skill must genuinely call every endpoint it declares, and reviewers verify that)
 - **Credentials/API keys required:** none
 - **System dependencies:** bash, date
 
-*(A real skill must list every endpoint it talks to and every credential it needs — this section is mandatory. See [SECURITY.md](../../SECURITY.md).)*
+*(A real skill must list every endpoint it talks to and every credential it needs — this section is mandatory. See [SECURITY.md](../../SECURITY.md). Note that real skills must also use at least one AIsa endpoint beyond plain model calls — this seed is exempt only because it's the format demo.)*

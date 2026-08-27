@@ -95,9 +95,10 @@ function skillsTable(items) {
   if (!items.length) return "_No community skills yet — [be the first](CONTRIBUTING.md)!_";
   const rows = items.map((s) => {
     const reqs = s.requirements?.length ? esc(s.requirements.join(", ")) : "none";
-    return `| [**${esc(s.name)}**](skills/${s.dir}/) | ${esc(s.description)} | ${esc(s.category)} | ${esc(s.version)} | ${reqs} | [@${esc(s.author?.github)}](https://github.com/${esc(s.author?.github)}) |`;
+    const endpoints = (s.aisa_endpoints_used ?? []).map((e) => `\`${esc(e)}\``).join(" ");
+    return `| [**${esc(s.name)}**](skills/${s.dir}/) | ${esc(s.description)} | ${endpoints} | ${esc(s.category)} | ${esc(s.version)} | ${reqs} | [@${esc(s.author?.github)}](https://github.com/${esc(s.author?.github)}) |`;
   });
-  return ["| Skill | What it does | Category | Version | Requires | Author |", "|---|---|---|---|---|---|", ...rows].join("\n");
+  return ["| Skill | What it does | AIsa endpoints | Category | Version | Requires | Author |", "|---|---|---|---|---|---|---|", ...rows].join("\n");
 }
 
 function hallOfFame() {

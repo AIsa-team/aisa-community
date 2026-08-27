@@ -28,6 +28,14 @@ body:
       placeholder: https://github.com/you/your-skill
     validations:
       required: true
+  - type: input
+    id: endpoints
+    attributes:
+      label: AIsa endpoints used (at least 1)
+      description: Skills must use at least one AIsa endpoint beyond plain model calls — prompt-only skills are not eligible.
+      placeholder: stock/prices, search/web
+    validations:
+      required: true
   - type: dropdown
     id: license
     attributes:

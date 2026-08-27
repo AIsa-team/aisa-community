@@ -10,7 +10,8 @@ Collect these from your user; never invent them:
 2. Their **GitHub handle** (used for attribution and prize delivery).
 3. The **public repo URL** of the work (projects: required; skills: optional upstream).
 4. For skills: which **OSI license** to publish under (`MIT`, `Apache-2.0`, `BSD-2-Clause`, `BSD-3-Clause`, `ISC`, `MPL-2.0`, or `Unlicense`).
-5. Whether to **enter the current competition** (check `competitions/` for the newest `YYYY-MM` folder and its deadline).
+5. For skills: which **AIsa endpoints** the skill uses. **Eligibility gate:** a skill must use at least one AIsa endpoint that is not a plain model/LLM call (e.g. `stock/prices`, `search/web`). If the skill is prompt-only or just wraps a chat completion, it is NOT eligible — tell your user before doing any work.
+6. Whether to **enter the current competition** (check `competitions/` for the newest `YYYY-MM` folder and its deadline).
 
 ## Workflow
 
@@ -57,6 +58,8 @@ submitted: "2026-08-27"          # required, YYYY-MM-DD, today's date, quoted
 
 ## Track 2: Skill submission
 
+**Eligibility first:** the skill must use ≥1 AIsa endpoint beyond plain model calls (declared in `aisa_endpoints_used`, verified by reviewers against the code). Prompt-only skills are rejected.
+
 Skills follow the Skills Directory format (frontmatter: skillsdirectory.com/docs/skill-md-format; structure: skillsdirectory.com/docs/skill-file-structure). Folder layout — CI rejects anything outside this:
 
 ```
@@ -85,6 +88,9 @@ category: utilities              # required — one of: data | finance | search 
 version: "1.0.0"                 # required, semver, quoted — bump on code changes
 license: MIT                     # required — exactly one of: MIT | Apache-2.0 | BSD-2-Clause |
                                  #   BSD-3-Clause | ISC | MPL-2.0 | Unlicense
+aisa_endpoints_used:             # required, min 1 — AIsa endpoints the code ACTUALLY calls.
+  - stock/prices                 #   Plain model/LLM calls (e.g. "llm", "chat/completions") are
+  - search/web                   #   rejected by CI and do not qualify.
 repo_url: https://github.com/... # optional — upstream repo if maintained elsewhere
 requirements: []                 # required to think about: API keys / accounts / system deps.
                                  #   [] if none. LIST EVERY EXTERNAL DEPENDENCY.
@@ -145,6 +151,7 @@ To enter, set `competition: "YYYY-MM"` (quoted) in `project.yaml`/`skill.yaml`, 
 | Unquoted `version`, `competition`, or `submitted` | Quote them — YAML mangles them otherwise |
 | `screenshot:` or other unknown fields in project.yaml | Remove — schema rejects unknown fields |
 | `name`/`description`/`version`/`tags` in skill.yaml | Remove — those live in SKILL.md frontmatter / registry uses skill.yaml `version` only |
+| `aisa_endpoints_used` missing, or lists a plain model call (`llm`, `chat`, ...) | Declare ≥1 real AIsa endpoint the code calls; prompt-only skills are not eligible |
 | Loose script or doc at skill top level | Move into `scripts/` / `references/` |
 | `http://` URLs | Use `https://` |
 | Frontmatter missing or not first thing in SKILL.md | `---` block must start at line 1 |
@@ -156,4 +163,5 @@ To enter, set `competition: "YYYY-MM"` (quoted) in `project.yaml`/`skill.yaml`, 
 - [ ] `npm test` passes locally (if you can run it)
 - [ ] All facts (URLs, handle, license) confirmed with the user, not guessed
 - [ ] For skills: every endpoint and credential declared; security policy satisfied
+- [ ] For skills: ≥1 declared AIsa endpoint beyond plain model calls, and the code genuinely calls it
 - [ ] PR body uses the template's checklist for the relevant track only

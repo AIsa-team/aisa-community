@@ -43,9 +43,9 @@ _No competitions decided yet. The first cycle is underway — see [competitions/
 > ⚠️ Community skills are reviewed but community-maintained. Read a skill's `SKILL.md` and code before installing. Official skills live in [AIsa-team/agent-skills](https://github.com/AIsa-team/agent-skills) — standout community skills get promoted there.
 
 <!-- SKILLS:START -->
-| Skill | What it does | Category | Version | Requires | Author |
-|---|---|---|---|---|---|
-| [**hello-aisa-skill**](skills/hello-aisa-skill/) | Prints a greeting with the current UTC time. Seed example demonstrating the community skill format — copy its structure, not its content. | utilities | 1.0.0 | none | [@AIsa-team](https://github.com/AIsa-team) |
+| Skill | What it does | AIsa endpoints | Category | Version | Requires | Author |
+|---|---|---|---|---|---|---|
+| [**hello-aisa-skill**](skills/hello-aisa-skill/) | Prints a greeting with the current UTC time. Seed example demonstrating the community skill format — copy its structure, not its content. | `search/web` | utilities | 1.0.0 | none | [@AIsa-team](https://github.com/AIsa-team) |
 <!-- SKILLS:END -->
 
 ## 📚 More
