@@ -63,6 +63,26 @@ function projectsTable(items) {
   return ["| Project | What it does | AIsa endpoints used | Author | Links |", "|---|---|---|---|---|", ...rows].join("\n");
 }
 
+// If the newest cycle has no winners.yaml yet, it is the currently running
+// (or upcoming) competition — promote it instead of showing an empty shelf.
+// Theme and window are parsed from the cycle's own README, so cycle briefs
+// stay the single source of truth.
+function currentCycleBanner() {
+  const cycles = listDirs(path.join(ROOT, "competitions")).filter((c) => /^\d{4}-\d{2}$/.test(c));
+  const latest = cycles[cycles.length - 1];
+  if (!latest) return null;
+  const dir = path.join(ROOT, "competitions", latest);
+  if (fs.existsSync(path.join(dir, "winners.yaml"))) return null; // decided — winners speak for themselves
+  const briefPath = path.join(dir, "README.md");
+  if (!fs.existsSync(briefPath)) return null;
+  const brief = fs.readFileSync(briefPath, "utf8");
+  const title = brief.match(/^# AIsa Competition — \d{4}-\d{2}:\s*(.+)$/m);
+  const theme = title ? title[1].trim() : latest;
+  const window = brief.match(/^\*\*Window:\*\*\s*([^·\n]+)/m);
+  const windowText = window ? ` · ${window[1].trim()}` : "";
+  return `🏁 **Now running: [${latest} — ${esc(theme)}](competitions/${latest}/)**${windowText} — see the brief for prizes and how to enter. Winners land here after judging.`;
+}
+
 function hallOfFame() {
   const medals = { 1: "🥇", 2: "🥈", 3: "🥉" };
   const bySlug = new Map(loadProjects().map((p) => [p.slug, p]));
@@ -89,9 +109,11 @@ function hallOfFame() {
     const link = data.announcement_url ? ` · [announcement](${data.announcement_url})` : "";
     blocks.push(`### ${cycle} — ${esc(data.theme)}${link}\n\n${lines.join("\n")}`);
   }
+  const banner = currentCycleBanner();
+  if (banner) blocks.unshift(banner);
   return blocks.length
     ? blocks.join("\n\n")
-    : "_No competitions decided yet. The first cycle is underway — see [competitions/](competitions/)._";
+    : "_No competitions yet — see [competitions/](competitions/)._";
 }
 
 function replaceSection(content, marker, body) {
