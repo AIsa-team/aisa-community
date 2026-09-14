@@ -4,7 +4,6 @@
  *
  * Sections are delimited by HTML comment markers and fully overwritten:
  *   <!-- PROJECTS:START --> ... <!-- PROJECTS:END -->
- *   <!-- SKILLS:START --> ... <!-- SKILLS:END -->
  *   <!-- HALL_OF_FAME:START --> ... <!-- HALL_OF_FAME:END -->
  *   <!-- STATS:START --> ... <!-- STATS:END -->
  *
@@ -34,41 +33,14 @@ const listDirs = (dir) =>
 const readYaml = (f) => yaml.load(fs.readFileSync(f, "utf8"));
 const esc = (s) => String(s ?? "").replace(/\|/g, "\\|").replace(/\r?\n/g, " ").trim();
 
-// Skills are hybrid-sourced: name/description come from the SKILL.md frontmatter
-// (the only fields the spec guarantees — https://www.skillsdirectory.com/docs/skill-md-format);
-// everything else the registry needs (version, author, category, ...) comes from skill.yaml.
-function readFrontmatter(file) {
-  if (!fs.existsSync(file)) return {};
-  const m = fs.readFileSync(file, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
-  if (!m) return {};
-  try {
-    const fm = yaml.load(m[1]);
-    return fm && typeof fm === "object" && !Array.isArray(fm) ? fm : {};
-  } catch {
-    return {};
-  }
-}
-
-function loadTrack(track) {
-  const base = path.join(ROOT, track === "project" ? "projects" : "skills");
-  const metaName = track === "project" ? "project.yaml" : "skill.yaml";
+function loadProjects() {
+  const base = path.join(ROOT, "projects");
   const out = [];
   for (const dir of listDirs(base)) {
-    const metaPath = path.join(base, dir, metaName);
+    const metaPath = path.join(base, dir, "project.yaml");
     if (!fs.existsSync(metaPath)) continue;
     try {
-      const meta = readYaml(metaPath);
-      if (track === "skill") {
-        const fm = readFrontmatter(path.join(base, dir, "SKILL.md"));
-        out.push({
-          dir,
-          ...meta,
-          name: fm.name ?? meta.slug ?? dir,
-          description: fm.description ?? "",
-        });
-      } else {
-        out.push({ dir, ...meta });
-      }
+      out.push({ dir, ...readYaml(metaPath) });
     } catch {
       /* validate.mjs reports parse errors; skip here */
     }
@@ -85,27 +57,15 @@ function projectsTable(items) {
     const links = [`[repo](${p.repo_url})`];
     if (p.demo_url) links.push(`[demo](${p.demo_url})`);
     if (p.video_url) links.push(`[video](${p.video_url})`);
-    const endpoints = (p.aisa_endpoints_used ?? []).map((s) => `\`${esc(s)}\``).join(" ");
+    const endpoints = (p.aisa_endpoints_used ?? []).map((e) => `\`${esc(e)}\``).join(" ");
     return `| [**${esc(p.name)}**](projects/${p.dir}/) | ${esc(p.description)} | ${endpoints} | [@${esc(p.author?.github)}](https://github.com/${esc(p.author?.github)}) | ${links.join(" · ")} |`;
   });
   return ["| Project | What it does | AIsa endpoints used | Author | Links |", "|---|---|---|---|---|", ...rows].join("\n");
 }
 
-function skillsTable(items) {
-  if (!items.length) return "_No community skills yet — [be the first](CONTRIBUTING.md)!_";
-  const rows = items.map((s) => {
-    const reqs = s.requirements?.length ? esc(s.requirements.join(", ")) : "none";
-    const endpoints = (s.aisa_endpoints_used ?? []).map((e) => `\`${esc(e)}\``).join(" ");
-    return `| [**${esc(s.name)}**](skills/${s.dir}/) | ${esc(s.description)} | ${endpoints} | ${esc(s.category)} | ${esc(s.version)} | ${reqs} | [@${esc(s.author?.github)}](https://github.com/${esc(s.author?.github)}) |`;
-  });
-  return ["| Skill | What it does | AIsa endpoints | Category | Version | Requires | Author |", "|---|---|---|---|---|---|---|", ...rows].join("\n");
-}
-
 function hallOfFame() {
-  const bySlug = new Map();
-  for (const track of ["project", "skill"]) {
-    for (const item of loadTrack(track)) bySlug.set(`${track}:${item.slug}`, item);
-  }
+  const medals = { 1: "🥇", 2: "🥈", 3: "🥉" };
+  const bySlug = new Map(loadProjects().map((p) => [p.slug, p]));
   const blocks = [];
   for (const cycle of listDirs(path.join(ROOT, "competitions")).reverse()) {
     const winnersPath = path.join(ROOT, "competitions", cycle, "winners.yaml");
@@ -117,15 +77,14 @@ function hallOfFame() {
       continue;
     }
     const lines = (data.winners ?? [])
-      .sort((a, b) => (a.track === b.track ? 0 : a.track === "project" ? -1 : 1))
+      .sort((a, b) => a.place - b.place)
       .map((w) => {
-        const item = bySlug.get(`${w.track}:${w.slug}`);
+        const item = bySlug.get(w.slug);
         const label = item
-          ? `[**${esc(item.name)}**](${w.track === "project" ? "projects" : "skills"}/${item.dir}/) by [@${esc(item.author?.github)}](https://github.com/${esc(item.author?.github)})`
+          ? `[**${esc(item.name)}**](projects/${item.dir}/) by [@${esc(item.author?.github)}](https://github.com/${esc(item.author?.github)})`
           : `\`${esc(w.slug)}\``;
         const note = w.note ? ` — _${esc(w.note)}_` : "";
-        const trackLabel = w.track === "project" ? "Best Project" : "Best Skill";
-        return `- 🏆 **${trackLabel}:** ${label}${note}`;
+        return `- ${medals[w.place] ?? `#${w.place}`} ${label}${note}`;
       });
     const link = data.announcement_url ? ` · [announcement](${data.announcement_url})` : "";
     blocks.push(`### ${cycle} — ${esc(data.theme)}${link}\n\n${lines.join("\n")}`);
@@ -143,17 +102,13 @@ function replaceSection(content, marker, body) {
   return content.replace(re, `${start}\n${body}\n${end}`);
 }
 
-const projects = loadTrack("project");
-const skills = loadTrack("skill");
-const contributors = new Set(
-  [...projects, ...skills].map((x) => x.author?.github?.toLowerCase()).filter(Boolean),
-);
-const stats = `**${projects.length}** projects · **${skills.length}** skills · **${contributors.size}** contributors`;
+const projects = loadProjects();
+const contributors = new Set(projects.map((x) => x.author?.github?.toLowerCase()).filter(Boolean));
+const stats = `**${projects.length}** projects · **${contributors.size}** contributors`;
 
 let readme = fs.readFileSync(README, "utf8");
 readme = replaceSection(readme, "STATS", stats);
 readme = replaceSection(readme, "PROJECTS", projectsTable(projects));
-readme = replaceSection(readme, "SKILLS", skillsTable(skills));
 readme = replaceSection(readme, "HALL_OF_FAME", hallOfFame());
 
 const current = fs.readFileSync(README, "utf8");

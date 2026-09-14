@@ -1,45 +1,28 @@
 # Security Policy
 
-Community skills are **executable code** that other people will run inside their AIsa agents. This policy is what keeps the registry trustworthy.
+This registry hosts **metadata only** — every submitted product lives in its author's own repository. The gallery is a showcase, **not an endorsement or a security audit**: read a product's code and documentation before running it.
 
-## Rules for vendored skills
+## Listing policy
 
-A skill PR will be rejected (and repeat offenses banned) if it:
+A submission is removed (and repeat offenses banned) if the product it links to:
 
-1. **Downloads and executes code at runtime** — no `curl | sh`, no fetching scripts to `eval`, no self-updating payloads.
-2. **Reads credentials beyond its declared requirements** — no touching `~/.ssh`, `~/.aws`, keychains, browser profiles, or environment variables it didn't declare in `requirements`.
-3. **Exfiltrates data** — every network endpoint the skill talks to must be documented in `SKILL.md`.
-4. **Contains obfuscated code** — base64-encoded logic, packed strings, minified-only sources. Reviewers must be able to read everything.
-5. **Ships secrets** — API keys, tokens, or private keys in any file.
-6. **Performs destructive operations** outside its own working directory without an explicit, documented user confirmation step.
-7. **Mines or spams** — no cryptominers, no bulk messaging.
-
-## Financial-transaction skills and projects
-
-Submissions that can execute financial transactions — trading, transfers, payments, crypto operations — are **allowed, but must warn the user**. Concretely:
-
-- `SKILL.md` (or the project's README) must open with a prominent **⚠️ warning** that the software can move real money or assets, and describe the worst-case outcome (e.g. total loss of funds it can access).
-- Every transaction path must require an **explicit user confirmation step by default**. Fully unattended execution may exist only as a documented, off-by-default opt-in.
-- Every venue, broker, exchange, or chain the software touches — and every credential it needs — must be declared in `requirements` and documented in `SKILL.md`.
-- Inclusion in this registry is **not an endorsement and not investment advice**; users transact entirely at their own risk.
-
-A submission that hides transaction capability, or defaults to unattended execution without these disclosures, is treated as malicious under this policy.
+1. **Is malicious or deceptive** — malware, credential harvesting, hidden data exfiltration, or functionality that materially differs from its description.
+2. **Hides financial-transaction capability.** Products that can execute financial transactions (trading, transfers, payments, crypto) are allowed only if their own README warns users prominently that real money or assets can move, and transaction paths require explicit user confirmation by default. Concealing this is treated as malicious.
+3. **Ships secrets in this repo** — API keys, tokens, or private keys in the submission metadata (CI scans for these).
+4. **Misdeclares its AIsa usage** — endpoints listed in `aisa_endpoints_used` that the product doesn't call, discovered at review or later.
 
 ## What CI checks vs. what humans check
 
-- **CI (automated, best-effort):** schema validity, secret patterns, known dangerous shell patterns, file size limits.
-- **Maintainers:** full read of the code, verification that `SKILL.md` documents all endpoints and requirements, license sanity.
+- **CI (automated, best-effort):** schema validity, secret patterns in submitted metadata, endpoint-declaration sanity.
+- **Maintainers:** the linked repo is public and real, the description is honest, and the declared AIsa endpoints are genuinely used.
 
-Automated scanning is a floor, not a guarantee. **You should still read a skill's code before installing it**.
+## Reporting
 
-## Reporting a vulnerability or malicious submission
-
-- **Malicious or suspicious skill in the registry:** open a private report via GitHub's *Report a vulnerability* (Security tab), or email the maintainers. Do **not** open a public issue with exploit details first.
+- **Malicious or deceptive listing:** open a private report via GitHub's *Report a vulnerability* (Security tab), or contact the maintainers. Do **not** open a public issue with exploit details first.
 - **Vulnerability in the repo tooling** (validators, workflows): same channel.
 
-We aim to acknowledge reports within 72 hours. Confirmed malicious submissions are removed immediately and the incident is disclosed in the affected skill's folder.
+We aim to acknowledge reports within 72 hours. Confirmed malicious listings are removed immediately.
 
-## Scope notes
+## Workflow security
 
-- Projects (metadata-only entries) link to external repos we don't control — the gallery is a showcase, **not an endorsement or audit**.
-- GitHub Actions in this repo run with minimal permissions; workflows triggered by fork PRs never expose secrets to submitted code.
+GitHub Actions in this repo run with minimal permissions; workflows triggered by fork PRs never expose secrets to submitted content.

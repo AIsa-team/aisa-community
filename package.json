@@ -2,7 +2,7 @@
   "name": "aisa-community",
   "version": "1.0.0",
   "private": true,
-  "description": "Community showcase and skill registry for AIsa — validation and README tooling.",
+  "description": "Community showcase for products built with AIsa — validation and README tooling.",
   "type": "module",
   "scripts": {
     "validate": "node scripts/validate.mjs",

@@ -31,7 +31,7 @@ jobs:
               owner, repo, pull_number: prNumber, per_page: 100,
             });
             const metaFiles = files.filter(f =>
-              /^(projects|skills)\/[^/]+\/(project|skill)\.yaml$/.test(f.filename) &&
+              /^projects\/[^/]+\/project\.yaml$/.test(f.filename) &&
               f.status !== "removed"
             );
             const cycles = new Set();
