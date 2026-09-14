@@ -1,0 +1,15 @@
+name: E2E Pipeline Probe (test entry)
+slug: e2e-pipeline-probe
+description: >
+  Temporary maintainer test entry exercising the full submission pipeline
+  after the products-only restructure — PR validation, labeling,
+  competition tagging, protected merge, and gallery regeneration.
+  Removed immediately after verification.
+author:
+  github: lhymmEU
+category: developer-tools
+tags: [test]
+repo_url: https://github.com/AIsa-team/aisa-community
+aisa_endpoints_used: [stock/prices]
+competition: "2026-10"
+submitted: "2026-09-14"
