@@ -5,7 +5,7 @@
 Built a working product with AIsa? This is where it gets seen. Every merged submission appears in the gallery below, and once or twice a month we run a **competition** — winners get **AIsa credits** and a feature on our official channels.
 
 <!-- STATS:START -->
-**1** projects · **1** contributors
+**2** projects · **2** contributors
 <!-- STATS:END -->
 
 ## 🚀 Submit in 10 minutes
@@ -34,6 +34,7 @@ _No competitions decided yet. The first cycle is underway — see [competitions/
 <!-- PROJECTS:START -->
 | Project | What it does | AIsa endpoints used | Author | Links |
 |---|---|---|---|---|
+| [**E2E Pipeline Probe (test entry)**](projects/e2e-pipeline-probe/) | Temporary maintainer test entry exercising the full submission pipeline after the products-only restructure — PR validation, labeling, competition tagging, protected merge, and gallery regeneration. Removed immediately after verification. | `stock/prices` | [@lhymmEU](https://github.com/lhymmEU) | [repo](https://github.com/AIsa-team/aisa-community) |
 | [**Hello AIsa (example entry)**](projects/hello-aisa/) | Seed entry from the AIsa team demonstrating the submission format — including the endpoint rule: every submission must genuinely use at least one AIsa endpoint beyond plain model calls, declared in aisa_endpoints_used. | `stock/prices` `search/web` | [@AIsa-team](https://github.com/AIsa-team) | [repo](https://github.com/AIsa-team/agent-skills) |
 <!-- PROJECTS:END -->
 
