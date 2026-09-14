@@ -16,7 +16,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout with a fine-grained PAT (Contents: read/write, this repo
+      # only) so the regen push authenticates as a repo admin, which the
+      # main-protection ruleset already exempts from the required
+      # "validate" check. Every contributor push and every PR merge stays
+      # fully gated. GITHUB_TOKEN cannot be used here: the GitHub Actions
+      # app cannot be added as a bypass actor on this org, and deploy keys
+      # are disabled org-wide.
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.README_BOT_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
