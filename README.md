@@ -5,7 +5,7 @@
 Built a working product with AIsa? This is where it gets seen. Every merged submission appears in the gallery below, and once or twice a month we run a **competition** — winners get **AIsa credits** and a feature on our official channels.
 
 <!-- STATS:START -->
-**1** projects · **1** contributors
+**0** projects · **0** contributors
 <!-- STATS:END -->
 
 ## 🚀 Submit in 10 minutes
