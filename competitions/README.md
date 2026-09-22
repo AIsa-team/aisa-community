@@ -14,7 +14,7 @@ Once or twice a month we pick winners from community submissions. Winners get **
 | Criterion | Weight | What we look for |
 |---|---|---|
 | Creativity | 10% | Original idea, unexpected use of AIsa |
-| Usefulness | 40% | Solves a real problem; would people actually use it |
+| Usefulness | 40% | The entry links a public discussion (Reddit, X, …) where real users complain about a pain point, and the product is built to solve it — scored on how real the pain is and how well it's solved |
 | AIsa integration depth | 35% | How central and well-used the AIsa endpoints are |
 | Craft | 15% | Code quality, docs, demo quality |
 

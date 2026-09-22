@@ -26,7 +26,7 @@ Once or twice a month we pick winners from recent submissions. Prizes: **AIsa cr
 ### Hall of Fame
 
 <!-- HALL_OF_FAME:START -->
-🏁 **Now running: [2026-10 — Build with AIsa](competitions/2026-10/)** · 2026-10-01 00:00 UTC → 2026-10-14 23:59 UTC (two weeks) — see the brief for prizes and how to enter. Winners land here after judging.
+🏁 **Now running: [2026-10 — Build with AIsa](competitions/2026-10/)** · Submissions are open now → 2026-10-14 23:59 UTC — see the brief for prizes and how to enter. Winners land here after judging.
 <!-- HALL_OF_FAME:END -->
 
 ## 🖼 Products built with AIsa

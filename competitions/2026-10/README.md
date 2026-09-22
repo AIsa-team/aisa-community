@@ -2,7 +2,7 @@
 
 **The inaugural AIsa community competition.** Ship a working product built with AIsa — a bot, a dashboard, a research tool, an experiment nobody expected — and put it in front of the whole community.
 
-**Window:** 2026-10-01 00:00 UTC → 2026-10-14 23:59 UTC (two weeks) · **Winners announced:** by 2026-10-21
+**Window:** Submissions are open now → 2026-10-14 23:59 UTC · **Winners announced:** by 2026-10-21
 
 ## Prizes
 
@@ -21,8 +21,8 @@ All three places enter the Hall of Fame with an embeddable winner badge. Credits
 Need a direction? Four spotlights (suggestions, not separate prize pools):
 
 - **Market Intelligence** — dashboards, screeners, digest bots, research copilots (`stock/prices`, `stock/news`, `stock/statements`)
-- **Research Agents** — multi-source research and synthesis tools (`search/web`, `search/scholar`)
-- **Signals & Sentiment** — prediction-market odds and social signals turned into product inputs
+- **Cross-border E-commerce** — product research, pricing intelligence, and market monitoring for cross-border sellers (`search/web`, market- and social-data endpoints)
+- **Social Media Analytics** — trend tracking, sentiment dashboards, creator and audience analytics (social-data and `search/web` endpoints)
 - **Wildcard** — anything that couldn't exist without AIsa
 
 ## How to enter
@@ -35,6 +35,8 @@ competition: "2026-10"
 
 New submissions and existing ones substantially updated during the window both qualify. Up to 2 entries per person. Entries with metadata merged (or in review with green CI) by the deadline count.
 
+**Pain-point evidence (scored):** include in your PR description a link to a public discussion (Reddit, X, a forum thread, …) where real users complain about the pain point your product solves. Usefulness — the heaviest rubric criterion at 40% — is scored on how real that pain is and how well your product addresses it.
+
 ## Judging
 
 An **anonymous panel** scores every qualifying entry independently against the standing rubric — Usefulness 40%, AIsa integration depth 35%, Craft 15%, Creativity 10% — and the average decides. Judging is panel-only; full terms: [competitions/README.md](../README.md).
@@ -43,7 +45,7 @@ An **anonymous panel** scores every qualifying entry independently against the s
 
 | Date (2026, UTC) | Milestone |
 |---|---|
-| Oct 1, 00:00 | Submissions open |
+| Now | Submissions open — announcement on X and Discord, outreach to selected GitHub builders |
 | Oct 7 | Midpoint showcase of early entries on official channels |
 | Oct 14, 23:59 | Deadline |
 | by Oct 21 | Winners announced · promotion week begins |
